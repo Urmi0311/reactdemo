@@ -23,7 +23,7 @@ const FreeLiquidDialog = ({
   setIsFreeAdded,
 }) => {
   const [scanned, setScanned] = useState(false)
-  const [scannedProduct, setScannedProduct] = useState(undefined)
+  const [scannedProduct, setScannedProduct] = useState()
   const [isFound, setIsFound] = useState(true)
   const [isError, setIsError] = useState(false)
 

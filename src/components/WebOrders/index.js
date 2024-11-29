@@ -90,13 +90,13 @@ export const WebOrders = () => {
     { headerName: 'Replace', field: 'isFree', cellRenderer: 'btnCellRenderer' },
   ])
   const [actionSpace, setActionSpace] = useState(null)
-  const [customerDetails, setCustomerDetails] = useState(undefined)
+  const [customerDetails, setCustomerDetails] = useState()
 
   const [isFreeLiquid, setIsFreeLiquid] = useState(false)
-  const [isFreeAdded, setIsFreeAdded] = useState(undefined)
+  const [isFreeAdded, setIsFreeAdded] = useState()
   const [openFreeLiquidDialog, setOpenFreeLiquidDialog] = useState(false)
-  const [freeData, setFreeData] = useState(undefined)
-  const [selectedLiquid, setSelectedLiquid] = useState(undefined)
+  const [freeData, setFreeData] = useState()
+  const [selectedLiquid, setSelectedLiquid] = useState()
 
   const [openDialog, setOpenDialog] = useState(false)
   const [trackingNumber, setTrackingNumber] = useState('')
