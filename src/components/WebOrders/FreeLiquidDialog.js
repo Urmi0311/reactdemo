@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
-  Typography,
+  Typography
 } from '@material-ui/core'
 import SkuScanner from './SkuScanner'
 import { instance } from '../../config/firebase'
@@ -20,7 +20,7 @@ const FreeLiquidDialog = ({
   setOrderData,
   setOrderObj,
   orderObj,
-  setIsFreeAdded,
+  setIsFreeAdded
 }) => {
   const [scanned, setScanned] = useState(false)
   const [scannedProduct, setScannedProduct] = useState(undefined)
@@ -37,7 +37,7 @@ const FreeLiquidDialog = ({
       order_quantity: data.order_quantity,
       counted_quantity: 0,
       match: false,
-      isFree: false,
+      isFree: false
     }
     orderData1.push(obj)
     delete orderObj[data.sku]
@@ -51,14 +51,14 @@ const FreeLiquidDialog = ({
   const handleFreeScan = async () => {
     const { data: freeData } = await instance.get(`/products/${data.sku}`, {
       params: {
-        isID: true,
-      },
+        isID: true
+      }
     })
     await instance
       .get(`/products/${skuInput}`, {
         params: {
-          isID: true,
-        },
+          isID: true
+        }
       })
       .then(({ data: res }) => {
         setScannedProduct(res.data)
@@ -66,7 +66,8 @@ const FreeLiquidDialog = ({
         res.data.variant_options.forEach((c) => {
           if (c.name === 'nicotine_strength') {
             const nicotineValue = c.value
-            const expectedNicotineValue = freeData.data.variant_options[0].value
+            const expectedNicotineValue =
+              freeData.data.variant_options[0].value
 
             // check for speical condition to allow store to scan 24MG expected for 18MG
             // and scan 16MG expected for 12MG
@@ -110,7 +111,7 @@ const FreeLiquidDialog = ({
 
   return (
     <Dialog
-      open={true}
+      open
       onEscapeKeyDown={() => setOpenFreeLiquidDialog(false)}
       onBackdropClick={() => setOpenFreeLiquidDialog(false)}
     >
@@ -122,22 +123,28 @@ const FreeLiquidDialog = ({
           handleScan={handleFreeScan}
         />
         <Divider />
-        {scanned ? (
-          <Typography variant={'body1'}>
-            Name: {scannedProduct.variant_name}
-          </Typography>
-        ) : null}
-        {!isFound ? (
-          <Typography variant={'body1'}>Wrong MG</Typography>
-        ) : isError ? (
-          <Typography variant={'body1'}>SKU does not exists</Typography>
-        ) : null}
+        {scanned
+          ? (
+            <Typography variant='body1'>
+              Name: {scannedProduct.variant_name}
+            </Typography>
+            )
+          : null}
+        {!isFound
+          ? (
+            <Typography variant='body1'>Wrong MG</Typography>
+            )
+          : isError
+            ? (
+              <Typography variant='body1'>SKU does not exists</Typography>
+              )
+            : null}
       </DialogContent>
       <DialogActions>
         <Button
           onClick={setNewData}
-          color="primary"
-          variant={'contained'}
+          color='primary'
+          variant='contained'
           disabled={!scanned}
         >
           Done

@@ -4,8 +4,8 @@ import { TextField } from '@material-ui/core'
 const SkuScanner = ({ skuInput, setSkuInput, handleScan }) => {
   return (
     <TextField
-      variant="outlined"
-      label="SCAN the SKU here"
+      variant='outlined'
+      label='SCAN the SKU here'
       fullWidth
       value={skuInput}
       onChange={(e) => {

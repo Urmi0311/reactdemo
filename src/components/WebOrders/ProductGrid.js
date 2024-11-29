@@ -4,7 +4,7 @@ import { AgGridReact } from '@ag-grid-community/react'
 import {
   ColumnsToolPanelModule,
   SetFilterModule,
-  ClipboardModule,
+  ClipboardModule
 } from '@ag-grid-enterprise/all-modules'
 import { Button, Grid } from '@material-ui/core'
 import { FindReplace, Done, Close } from '@material-ui/icons'
@@ -16,21 +16,23 @@ const StatusCellRenderer = (props) => {
   const match = props.node.data.match
   return (
     <span>
-      {match ? (
-        <Done
-          style={{
-            color: 'green',
-            marginTop: 10,
-          }}
-        />
-      ) : (
-        <Close
-          style={{
-            color: '#f50057',
-            marginTop: 10,
-          }}
-        />
-      )}
+      {match
+        ? (
+          <Done
+            style={{
+              color: 'green',
+              marginTop: 10
+            }}
+          />
+          )
+        : (
+          <Close
+            style={{
+              color: '#f50057',
+              marginTop: 10
+            }}
+          />
+          )}
     </span>
   )
 }
@@ -43,7 +45,7 @@ const ProductGrid = ({
   _columnDefinition,
   setOpenFreeLiquidDialog,
   freeData,
-  setSelectedLiquid,
+  setSelectedLiquid
 }) => {
   const BtnCellRenderer = (props) => {
     const handleClick = (e) => {
@@ -53,16 +55,18 @@ const ProductGrid = ({
     const isFree = props.node.data.isFree
     return (
       <span>
-        {isFree ? (
-          <FindReplace
-            style={{
-              color: 'red',
-              marginTop: 10,
-              cursor: 'pointer',
-            }}
-            onClick={handleClick}
-          />
-        ) : null}
+        {isFree
+          ? (
+            <FindReplace
+              style={{
+                color: 'red',
+                marginTop: 10,
+                cursor: 'pointer'
+              }}
+              onClick={handleClick}
+            />
+            )
+          : null}
       </span>
     )
   }
@@ -71,7 +75,7 @@ const ProductGrid = ({
   const [gridColumnApi, setGridColumnApi] = useState(null)
   const [frameworkComponents, setFrameworkComponents] = useState({
     statusCellRenderer: StatusCellRenderer,
-    btnCellRenderer: BtnCellRenderer,
+    btnCellRenderer: BtnCellRenderer
   })
   const [columnDefinition, setColumnDefinition] = useState(_columnDefinition)
   const [pageSize, setPageSize] = useState(10000)
@@ -96,14 +100,14 @@ const ProductGrid = ({
     const sortModel = [
       {
         colId: 'product_name',
-        sort: 'asc',
-      },
+        sort: 'asc'
+      }
     ]
     params.api.setSortModel(sortModel)
   }
 
   const addToList = (item) => {
-    let currentData = []
+    const currentData = []
     gridApi.forEachNode((rowNode, index) => {
       currentData.push(rowNode.data)
     })
@@ -123,10 +127,10 @@ const ProductGrid = ({
       <Grid container>
         <Grid item xs={12}>
           <div
-            className="ag-theme-alpine"
+            className='ag-theme-alpine'
             style={{
               height: 600,
-              width: '100%',
+              width: '100%'
             }}
           >
             <AgGridReact
@@ -138,23 +142,23 @@ const ProductGrid = ({
                     labelDefault: 'Columns',
                     labelKey: 'columns',
                     iconKey: 'columns',
-                    toolPanel: 'agColumnsToolPanel',
-                  },
-                ],
+                    toolPanel: 'agColumnsToolPanel'
+                  }
+                ]
               }}
               rowData={rowData}
               modules={[
                 ClientSideRowModelModule,
                 ColumnsToolPanelModule,
-                SetFilterModule,
+                SetFilterModule
               ]}
               columnDefs={columnDefinition}
               defaultColDef={{
                 sortable: true,
-                resizable: true,
+                resizable: true
                 // suppressSizeToFit: true
               }}
-              pagination={true}
+              pagination
               paginationPageSize={pageSize}
               frameworkComponents={frameworkComponents}
             />

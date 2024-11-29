@@ -2,7 +2,7 @@ import {
   IconButton,
   ListItem,
   ListItemSecondaryAction,
-  ListItemText,
+  ListItemText
 } from '@material-ui/core'
 import React, { memo } from 'react'
 import AddIcon from '@material-ui/icons/Add'
@@ -16,12 +16,12 @@ const ListItemChild = ({ item, addToList }) => {
       />
       <ListItemSecondaryAction>
         <IconButton
-          edge="end"
+          edge='end'
           onClick={() => {
             addToList(item)
           }}
         >
-          <AddIcon color="primary" />
+          <AddIcon color='primary' />
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>

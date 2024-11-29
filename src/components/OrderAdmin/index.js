@@ -11,7 +11,7 @@ import {
   CircularProgress,
   Radio,
   FormControl,
-  FormControlLabel,
+  FormControlLabel
 } from '@material-ui/core'
 import { Header, Segment } from 'semantic-ui-react'
 import Autocomplete from '@material-ui/lab/Autocomplete'
@@ -40,7 +40,7 @@ export const OrderAdmin = () => {
     { headerName: 'SKU', field: 'sku' },
     {
       headerName: 'Product Type',
-      field: 'product_type',
+      field: 'product_type'
     },
     { headerName: 'Warehouse Qty', field: 'warehouse_quantity' },
     { headerName: 'Store Qty', field: 'store_quantity' },
@@ -50,12 +50,12 @@ export const OrderAdmin = () => {
       field: 'order_quantity',
       cellRendererParams: (params) => {
         return {
-          inputType: 'number',
+          inputType: 'number'
         }
-      },
+      }
     },
     { headerName: 'Approved Qty', field: 'approved_quantity', editable: true },
-    { headerName: 'Note', field: 'note', minWidth: 300 },
+    { headerName: 'Note', field: 'note', minWidth: 300 }
   ])
   const [excelDownload, setExcelDownload] = useState(null)
   const [staffName, setStaffName] = useState('')
@@ -110,8 +110,8 @@ export const OrderAdmin = () => {
       .get('confirmed-excel', {
         params: {
           outlet_id: outletId,
-          main_category: mainCategory,
-        },
+          main_category: mainCategory
+        }
       })
       .then((response) => {
         const data = response.data
@@ -150,8 +150,8 @@ export const OrderAdmin = () => {
           outlet_id: outletId,
           main_category: mainCategory,
           sub_category: subCategory,
-          isNew: newChecked,
-        },
+          isNew: newChecked
+        }
       })
       .then((r) => {
         if (Object.keys(r.data).length === 0) {
@@ -160,7 +160,6 @@ export const OrderAdmin = () => {
           setDateData([])
           setShowGrid(false)
           setWaiting(false)
-          return
         } else {
           setDataArr(r.data.data)
           setDateData(r.data.datesArr)
@@ -182,7 +181,7 @@ export const OrderAdmin = () => {
         <Segment>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Header as="h2" content={`Ordering System Admin`} />
+              <Header as='h2' content='Ordering System Admin' />
             </Grid>
             <Grid item xs={12}>
               <Autocomplete
@@ -197,7 +196,7 @@ export const OrderAdmin = () => {
                 }}
                 fullWidth
                 renderInput={(params) => (
-                  <TextField {...params} label="Store" variant="outlined" />
+                  <TextField {...params} label='Store' variant='outlined' />
                 )}
               />
             </Grid>
@@ -230,70 +229,74 @@ export const OrderAdmin = () => {
               <> </>
             } */}
             <Grid item xs={4}>
-              <Button variant="contained" color="primary" onClick={handleView}>
+              <Button variant='contained' color='primary' onClick={handleView}>
                 View
               </Button>
             </Grid>
             <Grid item xs={12}>
-              <FormControl component="fieldset">
+              <FormControl component='fieldset'>
                 <FormControlLabel
-                  value="new"
+                  value='new'
                   control={
                     <Radio checked={newChecked} onClick={handleNewCheck} />
                   }
-                  label="Approve New Category?"
+                  label='Approve New Category?'
                 />
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              {excelDownload === null ? (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleExcel}
-                >
-                  Download Excel
-                </Button>
-              ) : (
-                excelDownload
-              )}
+              {excelDownload === null
+                ? (
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handleExcel}
+                  >
+                    Download Excel
+                  </Button>
+                  )
+                : (
+                    excelDownload
+                  )}
             </Grid>
-            {showGrid ? (
-              <>
-                <Grid item xs={12}>
-                  {dateData.map((d) => {
-                    return (
-                      <Typography variant="body1" key={d.name}>{`${
-                        d.name
-                      } sale range: ${getFixedDate(
-                        d.startDate
-                      )} - ${getFixedDate(d.endDate)}`}</Typography>
-                    )
-                  })}
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1">{`Order confirmed by: ${staffName}`}</Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <ProductGrid
-                    dataArr={dataArr}
-                    mainCategoryName={mainCategory}
-                    subCategoryName={subCategory}
-                    setWaiting={setWaiting}
-                    _columnDefinition={columnDefinition}
-                    outletId={outletId}
-                    startDate={startDate}
-                    endDate={endDate}
-                    setStartDate={setStartDate}
-                    setShowGrid={setShowGrid}
-                    role={role}
-                    isNew={newChecked}
-                  />
-                </Grid>
-              </>
-            ) : (
-              <> </>
-            )}
+            {showGrid
+              ? (
+                <>
+                  <Grid item xs={12}>
+                    {dateData.map((d) => {
+                      return (
+                        <Typography variant='body1' key={d.name}>
+                          {`${d.name} sale range: ${getFixedDate(
+                          d.startDate
+                        )} - ${getFixedDate(d.endDate)}`}
+                        </Typography>
+                      )
+                    })}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant='body1'>{`Order confirmed by: ${staffName}`}</Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <ProductGrid
+                      dataArr={dataArr}
+                      mainCategoryName={mainCategory}
+                      subCategoryName={subCategory}
+                      setWaiting={setWaiting}
+                      _columnDefinition={columnDefinition}
+                      outletId={outletId}
+                      startDate={startDate}
+                      endDate={endDate}
+                      setStartDate={setStartDate}
+                      setShowGrid={setShowGrid}
+                      role={role}
+                      isNew={newChecked}
+                    />
+                  </Grid>
+                </>
+                )
+              : (
+                <> </>
+                )}
           </Grid>
         </Segment>
       </Segment.Group>
