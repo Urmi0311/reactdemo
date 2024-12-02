@@ -838,7 +838,8 @@ export const WebOrders = () => {
                   {orderList.map((item, index) => {
                     return (
                       <MenuItem
-                        key={index}
+                        // key={index}
+                        key={item.orderNumber}
                         value={`${item.orderNumber}|${index}`}
                       >
                         {item.orderNumber}
