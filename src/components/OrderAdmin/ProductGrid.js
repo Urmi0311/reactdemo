@@ -10,7 +10,7 @@ import {
   TextField,
   CircularProgress,
   List,
-  Typography,
+  Typography
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { instance } from '../../config/firebase'
@@ -48,14 +48,14 @@ const ProductGrid = ({
   endDate,
   setStartDate,
   setShowGrid,
-  isNew,
+  isNew
 }) => {
   const notify = useNotify()
   const [gridApi, setGridApi] = useState(null)
   const [gridColumnApi, setGridColumnApi] = useState(null)
   const [pageSize, setPageSize] = useState(10000)
   const [frameworkComponents, setFrameworkComponents] = useState({
-    btnCellRenderer: BtnCellRenderer,
+    btnCellRenderer: BtnCellRenderer
   })
   const [columnDefinition, setColumnDefinition] = useState(_columnDefinition)
   const [showProductDialog, setShowProductDialog] = useState(false)
@@ -94,17 +94,17 @@ const ProductGrid = ({
       return
     }
     setWaiting(true)
-    let currentData = []
+    const currentData = []
     gridApi.forEachNode((rowNode, index) => {
       currentData.push(rowNode.data)
     })
 
     await instance
-      .post(`stock-order`, {
+      .post('stock-order', {
         product_data: currentData,
         main_category: mainCategoryName,
         outlet_id: outletId,
-        isNew: isNew,
+        isNew
       })
       .then((response) => {
         notify('Confirm successful', 'info')
@@ -126,8 +126,8 @@ const ProductGrid = ({
           main_category: mainCategoryName,
           sub_category: subCategoryName,
           show_sub_category: false,
-          outlet_id: outletId,
-        },
+          outlet_id: outletId
+        }
       })
       .then((response) => {
         setSearchResults(response.data)
@@ -140,7 +140,7 @@ const ProductGrid = ({
   }
 
   const addToList = (item) => {
-    let currentData = []
+    const currentData = []
     gridApi.forEachNode((rowNode, index) => {
       currentData.push(rowNode.data)
     })
@@ -167,8 +167,8 @@ const ProductGrid = ({
       <Grid container>
         <Grid item xs={12} style={{ marginBottom: 30 }}>
           <Button
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             onClick={() => setShowProductDialog(true)}
           >
             Add Product
@@ -176,10 +176,10 @@ const ProductGrid = ({
         </Grid>
         <Grid item xs={12}>
           <div
-            className="ag-theme-alpine"
+            className='ag-theme-alpine'
             style={{
               height: role === process.env.REACT_APP_ADMIN_ROLE ? '80vh' : 600,
-              width: '100%',
+              width: '100%'
             }}
           >
             <AgGridReact
@@ -190,17 +190,17 @@ const ProductGrid = ({
               defaultColDef={{
                 sortable: true,
                 resizable: true,
-                filter: 'agTextColumnFilter',
+                filter: 'agTextColumnFilter'
                 // suppressSizeToFit: true
               }}
-              pagination={true}
+              pagination
               paginationPageSize={pageSize}
               frameworkComponents={frameworkComponents}
             />
           </div>
         </Grid>
         <Grid item xs={12} style={{ textAlign: 'center', marginTop: 20 }}>
-          <Button color="primary" variant="contained" onClick={handleClick}>
+          <Button color='primary' variant='contained' onClick={handleClick}>
             Approve
           </Button>
         </Grid>
@@ -213,11 +213,11 @@ const ProductGrid = ({
           <Grid container>
             <Grid item xs={10}>
               <TextField
-                variant="outlined"
-                label="Product Name"
+                variant='outlined'
+                label='Product Name'
                 fullWidth
-                id="productName"
-                name="productName"
+                id='productName'
+                name='productName'
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
                 onKeyPress={(e) => {
@@ -229,8 +229,8 @@ const ProductGrid = ({
             </Grid>
             <Grid item xs={2}>
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 fullWidth
                 style={{ marginTop: 10, marginLeft: 10 }}
                 onClick={handleSearch}
@@ -240,39 +240,43 @@ const ProductGrid = ({
               </Button>
             </Grid>
             <Grid item xs={12}>
-              {searchLoading ? (
-                <div style={{ textAlign: 'center', marginTop: 20 }}>
-                  <CircularProgress />
-                </div>
-              ) : (
-                <List dense={false}>
-                  {searchResults.length === 0 ? (
-                    <Typography
-                      variant="body1"
-                      style={{ textAlign: 'center', marginTop: 20 }}
-                    >
-                      No search results
-                    </Typography>
-                  ) : (
-                    <>
-                      {searchResults.map((item) => {
-                        return (
-                          <ListItemChild
-                            key={item.id}
-                            item={item}
-                            addToList={addToList}
-                          />
+              {searchLoading
+                ? (
+                  <div style={{ textAlign: 'center', marginTop: 20 }}>
+                    <CircularProgress />
+                  </div>
+                  )
+                : (
+                  <List dense={false}>
+                    {searchResults.length === 0
+                      ? (
+                        <Typography
+                          variant='body1'
+                          style={{ textAlign: 'center', marginTop: 20 }}
+                        >
+                          No search results
+                        </Typography>
                         )
-                      })}
-                    </>
+                      : (
+                        <>
+                          {searchResults.map((item) => {
+                            return (
+                              <ListItemChild
+                                key={item.id}
+                                item={item}
+                                addToList={addToList}
+                              />
+                            )
+                          })}
+                        </>
+                        )}
+                  </List>
                   )}
-                </List>
-              )}
             </Grid>
             <Grid item xs={12} style={{ marginTop: 20, textAlign: 'center' }}>
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 onClick={() => setShowProductDialog(false)}
                 style={{ marginTop: 20 }}
               >
